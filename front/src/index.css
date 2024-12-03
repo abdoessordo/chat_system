@@ -1,0 +1,19 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+small {
+  display: block;
+}
+
+.debug {
+  margin-bottom: 20px;
+}
+
+
+a{
+  display: block;
+  margin-top: 10px ;
+  text-decoration: none;
+  color: #000;
+}
