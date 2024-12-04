@@ -79,6 +79,7 @@ export default function ChatComponent({
           );
           setConversation(data);
           setConversationUUID(data.conversation_uuid);
+          conversationUUID_input = data.conversation_uuid;
         }
       }
       return conversation;

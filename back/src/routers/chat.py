@@ -6,8 +6,10 @@ Endpoints:
     - POST /agent: Handles the agent's reply to a conversation.
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import ValidationError
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
 
 from models.message import Message
 from models.conversation import Conversation, ALL_CONVERSATIONS
@@ -19,9 +21,12 @@ from uuid import UUID
 
 router = APIRouter()  
 
+# Rate limiter
+limiter = Limiter(key_func=get_remote_address)
 
 @router.post("/user", response_model=Conversation)
-async def user_message(conversation: Conversation):
+# @limiter.limit("1/second")
+async def user_message(request: Request, conversation: Conversation):
     """
     Handles a user message in a conversation.
     This endpoint receives a conversation object with a user message and returns the updated conversation with the agent reply.
@@ -52,7 +57,8 @@ async def user_message(conversation: Conversation):
 
 
 @router.post("/agent", response_model=AgentResponse)
-async def agent_reply(message: Message, conversation_uuid: UUID):
+# @limiter.limit("1/second")
+async def agent_reply(request: Request, message: Message, conversation_uuid: UUID):
     """
     Handle the agent's reply to a conversation.
     Args:

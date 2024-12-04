@@ -1,5 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from routers import chat, conversation
 
@@ -7,6 +9,7 @@ import socket
 
 app = FastAPI()
 
+limiter = Limiter(key_func=get_remote_address)
 
 origins = [
     "localhost:5173",
@@ -41,5 +44,6 @@ app.include_router(conversation.router, prefix="/api/v1/conversation")
 
 
 @app.get("/")
-def root():
+# @limiter.limit("1/second")
+def root(request: Request):
     return {"message": "Chat API is running"}
