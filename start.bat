@@ -8,7 +8,7 @@ cd ..\..\src
 
 :: Run the backend
 echo Starting the backend...
-start cmd /k uvicorn main:app --host 0.0.0.0 --port 8000
+start cmd /k uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 :: Navigate to the frontend directory
 echo Starting the frontend...

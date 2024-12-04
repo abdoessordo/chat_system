@@ -49,6 +49,7 @@ export default function AgentDashboard() {
           <TableRow>
             <TableCell sx={{ fontWeight: "bold" }}>updated_at</TableCell>
             <TableCell sx={{ fontWeight: "bold" }}>Conversation UUID</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Last Message</TableCell>
             <TableCell sx={{ fontWeight: "bold" }}>Open</TableCell>
           </TableRow>
         </TableHead>
@@ -65,7 +66,32 @@ export default function AgentDashboard() {
               </TableCell>
               <TableCell>{conversation.conversation_uuid}</TableCell>
               <TableCell>
-                <Link to={`/agent/chat/${conversation.conversation_uuid}`}>
+                <b>
+                  {
+                    conversation.messages[conversation.messages.length - 1]
+                      .sender
+                  }
+                  :{" "}
+                </b>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      conversation.messages[conversation.messages.length - 1]
+                        .content.length > 50
+                        ? conversation.messages[
+                            conversation.messages.length - 1
+                          ].content.substring(0, 47) + "..."
+                        : conversation.messages[
+                            conversation.messages.length - 1
+                          ].content,
+                  }}
+                />
+              </TableCell>
+              <TableCell>
+                <Link
+                  to={`/agent/chat/${conversation.conversation_uuid}`}
+                  style={{ margin: 0 }}
+                >
                   Open
                 </Link>
               </TableCell>

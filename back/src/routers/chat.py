@@ -42,7 +42,7 @@ async def user_message(conversation: Conversation):
 
     # If the conversation is not valid, return an error and the conversation object from the ALL_CONVERSATIONS dictionary
     if not is_valid_conversation:
-        raise HTTPException(status_code=400, detail="Invalid conversation")
+        raise HTTPException(status_code=400, detail="Cannot send two messages back to back. Please wait for a response.")
 
     # At this point, the conversation is valid, and is not new (it has at least one message)
     # We update the ALL_CONVERSATIONS dictionary with the new message
@@ -91,6 +91,6 @@ async def agent_reply(message: Message, conversation_uuid: UUID):
     if not is_valid_conversation:
         # Remove the last message from the conversation
         conversation.messages.pop()
-        raise HTTPException(status_code=400, detail="Invalid conversation")
+        raise HTTPException(status_code=400, detail="Cannot send two messages back to back. Please wait for a response.")
 
     return {"reply": message.content}

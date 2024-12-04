@@ -12,8 +12,6 @@ origins = [
     "http://" + socket.gethostbyname(socket.gethostname()) + ":5173", # Local ip address
 ]
 
-print("Allowed origins:", origins)
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
