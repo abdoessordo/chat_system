@@ -9,8 +9,10 @@ origins = [
     "localhost:5173",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    socket.gethostbyname(socket.gethostname()) + ":5173", # Local ip address
+    "http://" + socket.gethostbyname(socket.gethostname()) + ":5173", # Local ip address
 ]
+
+print("Allowed origins:", origins)
 
 app.add_middleware(
     CORSMiddleware,
