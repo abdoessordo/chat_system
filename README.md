@@ -76,7 +76,7 @@ npm run dev
 ```
 ---
 
-### **Running Both Servers**
+## **Running Both Servers**
 
 To simplify the setup process, use the provided `start.bat` script:
 
@@ -91,7 +91,7 @@ This will:
 - Start the frontend server.
 ---
 
-### **Project Structure**
+## **Project Structure**
 
 ```plaintext
 project/
@@ -114,7 +114,7 @@ project/
 ```
 ---
 
-### **Testing the Application**
+## **Testing the Application**
 
 Open your browser and navigate to:
 
