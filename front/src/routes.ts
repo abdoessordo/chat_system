@@ -1,4 +1,5 @@
-const host = "http://127.0.0.1:8000";
+// const host = "http://127.0.0.1:8000";
+const host = `http://${window.location.hostname}:8000`;
 const prefix = "/api/v1";
 
 export const routes = {

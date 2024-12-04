@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import chat, conversation
+import socket
 
 app = FastAPI()
 
@@ -8,6 +9,7 @@ origins = [
     "localhost:5173",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    socket.gethostbyname(socket.gethostname()) + ":5173", # Local ip address
 ]
 
 app.add_middleware(
@@ -25,6 +27,7 @@ API routes:
 """
 app.include_router(chat.router, prefix="/api/v1/chat")
 app.include_router(conversation.router, prefix="/api/v1/conversation")
+
 
 @app.get("/")
 def root():
