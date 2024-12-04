@@ -25,6 +25,17 @@ export default function AgentDashboard() {
           const conversations: Conversation[] = Object.keys(data).map(
             (key) => data[key]
           );
+
+          // sort conversations by updated_at in descending order
+          conversations.sort((a, b) => {
+            if (a.updated_at > b.updated_at) {
+              return -1;
+            }
+            if (a.updated_at < b.updated_at) {
+              return 1;
+            }
+            return 0;
+          });
           setAllConversations(conversations);
         }
       } catch (error) {

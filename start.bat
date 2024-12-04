@@ -15,5 +15,8 @@ echo Starting the frontend...
 cd ..\..\front
 start cmd /k npm run dev
 
+:: Navigate back to the root directory
+cd .. 
+
 echo Both servers are running. Close the windows to stop.
 pause

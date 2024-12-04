@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from .message import Message
 from datetime import datetime
 from uuid import UUID
+from random import choice
+
 
 class Conversation(BaseModel):
     conversation_uuid: UUID
@@ -10,17 +12,26 @@ class Conversation(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-    def add_message(self, sender: str, content: str, timestamp: datetime) -> None:
+    def generate_agent_welcome_message(self) -> Message:
         """
-        Add a new message to the conversation.
-        Args:
-            - sender (str): The sender of the message, either "user" or "agent".
-            - content (str): The content of the message.
-            - timestamp (datetime): The timestamp of the message.
+        Generates a welcome message from the agent.
+        Returns:
+            Message: An instance of the Message class containing the agent's welcome message, 
+                    the sender set to "agent", the content randomly chosen from a list of 
+                    predefined welcome messages, and the current timestamp.
         """
-        message = Message(sender=sender, content=content, timestamp=timestamp)
-        self.messages.append(message)
-        self.updated_at = timestamp
+
+        welcome_messages = [
+            "Hello! How can I help you today?",
+            "Hi! How can I assist you today?",
+            "Hey! How can I help you today?",
+        ]
+
+        return Message(
+            sender="agent",
+            content=choice(welcome_messages),
+            timestamp=datetime.now(),
+        )
+
 
 ALL_CONVERSATIONS: dict[UUID, Conversation] = {}
-

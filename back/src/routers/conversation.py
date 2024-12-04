@@ -5,6 +5,7 @@ Endpoints:
     - GET /: Returns all conversations.
     - GET /{conversation_uuid}: Returns a conversation by ID.
     - POST /: Creates a new conversation.
+    - DELETE /delete/all: Deletes all conversations.
 """
 
 from fastapi import APIRouter, HTTPException
@@ -25,6 +26,7 @@ async def get_all_conversations() -> dict[UUID, Conversation]:
     Returns:
         ALL_CONVERSATIONS: A dictionary containing all conversations.
     """
+    # Order the conversations by last to be updated
     return ALL_CONVERSATIONS
 
 
@@ -66,7 +68,6 @@ async def create_conversation() -> Conversation:
     # Dummy agent id for now
     agent_id = randint(1, 10)
 
-
     # Create a new conversation
     conversation = Conversation(
         conversation_uuid=conversation_uuid,
@@ -76,14 +77,23 @@ async def create_conversation() -> Conversation:
         updated_at=datetime.now()
     )
 
-    # Start conversatoin with a friendly message
-    conversation.add_message(
-        sender="agent",
-        content="Hello! how can I help you ?",
-        timestamp=datetime.now()
-    )
+    # Add a welcome message from the agent
+    conversation.messages.append(conversation.generate_agent_welcome_message())
 
     # Add the conversation to the list of all conversations
     ALL_CONVERSATIONS[conversation_uuid] = conversation
 
     return conversation
+
+
+@router.delete("/delete/all")
+async def delete_all_conversations():
+    """
+    Deletes all conversations.
+    This function clears the `ALL_CONVERSATIONS` list, effectively deleting all stored conversations.
+    Returns:
+        dict: A dictionary containing a message indicating that all conversations have been deleted.
+    """
+
+    ALL_CONVERSATIONS.clear()
+    return {"message": "All conversations deleted"}

@@ -1,15 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from routers import chat, conversation
+
 import socket
 
 app = FastAPI()
+
 
 origins = [
     "localhost:5173",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "http://" + socket.gethostbyname(socket.gethostname()) + ":5173", # Local ip address
+    # Local ip address
+    "http://" + socket.gethostbyname(socket.gethostname()) + ":5173",
 ]
 
 app.add_middleware(
@@ -19,6 +23,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+print("=================================")
+print("Allowed origins: ")
+for origin in origins:
+    print(origin)
+print("=================================")
+
 
 """
 API routes:

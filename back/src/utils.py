@@ -16,10 +16,10 @@ def validate_conversation(conversation: Conversation) -> bool:
     should be considered invalid.
 
     Args:
-        - conversation: The conversation object to validate
+        conversation: The conversation object to validate
 
     Returns:
-        - valid: True if the conversation is valid, False otherwise
+        valid: True if the conversation is valid, False otherwise
     """
 
     valid = True

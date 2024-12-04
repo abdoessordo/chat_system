@@ -12,10 +12,10 @@ from pydantic import ValidationError
 from models.message import Message
 from models.conversation import Conversation, ALL_CONVERSATIONS
 from models.responses import AgentResponse
+from utils import validate_conversation
 
 from uuid import UUID
 
-from utils import validate_conversation
 
 router = APIRouter()  
 
