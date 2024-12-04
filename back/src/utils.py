@@ -28,10 +28,6 @@ def validate_conversation(conversation: Conversation) -> bool:
     if not conversation.messages:
         return valid
 
-    # Check if the first message is from the user
-    if conversation.messages[0].sender != "user":
-        valid = False
-
     # Check if the conversation has alternating "user" and "agent" messages
     if len(conversation.messages) > 1 and conversation.messages[-1].sender == conversation.messages[-2].sender:
         valid = False

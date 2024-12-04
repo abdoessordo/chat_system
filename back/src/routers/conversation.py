@@ -66,6 +66,7 @@ async def create_conversation() -> Conversation:
     # Dummy agent id for now
     agent_id = randint(1, 10)
 
+
     # Create a new conversation
     conversation = Conversation(
         conversation_uuid=conversation_uuid,
@@ -73,6 +74,13 @@ async def create_conversation() -> Conversation:
         messages=[],
         created_at=datetime.now(),
         updated_at=datetime.now()
+    )
+
+    # Start conversatoin with a friendly message
+    conversation.add_message(
+        sender="agent",
+        content="Hello! how can I help you ?",
+        timestamp=datetime.now()
     )
 
     # Add the conversation to the list of all conversations
